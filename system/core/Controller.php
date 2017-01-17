@@ -26,6 +26,16 @@ class Controller
         $viewResult = ob_get_clean();
         echo $viewResult;
     }
+
+    protected function _model($modelClass = false) {
+
+        if ($modelClass) {
+            $modelPath = APPLICATION_PATH . 'models' . DIRECTORY_SEPARATOR . $modelClass . '.php';
+            require_once $modelPath;
+            $model = strtolower($modelClass);
+            $this->$model = new $modelClass;
+        }
+    }
 }
 
 
