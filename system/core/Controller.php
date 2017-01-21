@@ -13,7 +13,7 @@ class Controller
         $controllerName = get_class($this);
         $controllerPathName = str_replace("controller","",strtolower($controllerName));
 
-        $viewPath = 'application/views/' . $controllerPathName . '/' . $view . '.php';
+        $viewPath = 'application' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $controllerPathName . DIRECTORY_SEPARATOR . $view . '.php';
 
         if(!empty($data) && is_array($data)) {
             foreach($data as $key => $item) {
@@ -28,9 +28,8 @@ class Controller
     }
 
     protected function _model($modelClass = false) {
-
         if ($modelClass) {
-            $modelPath = APPLICATION_PATH . 'models' . DIRECTORY_SEPARATOR . $modelClass . '.php';
+            $modelPath = APPLICATION_PATH . 'models' . DIRECTORY_SEPARATOR . ucfirst($modelClass) . '.php';
             require_once $modelPath;
             $model = strtolower($modelClass);
             $this->$model = new $modelClass;
