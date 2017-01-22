@@ -8,8 +8,12 @@ class CommentController extends Controller
     }
 
     function page() {
-        $page_id = 1;
-        $comments = $this->comments->getByPageID($page_id);
+        if (!isset($_POST['url']) || empty($_POST['url'])) {
+            echo json_encode(['status' => '0', 'error' => 'No path']);
+        }
+        $url = $_POST['url'];
+        $path = parse_url($url, PHP_URL_PATH);
+        $comments = $this->comments->getByPath($path);
         echo json_encode($comments);
     }
 
