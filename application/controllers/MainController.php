@@ -3,6 +3,8 @@
 class MainController extends Controller
 {
     function index() {
-        $this->_view('index', ['class' => __CLASS__]);
+        $userID = (isset($_SESSION['user']['id'])) ? $_SESSION['user']['id'] : false;
+
+        $this->_view('index', ['userID' => $userID]);
     }
 }

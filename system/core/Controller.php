@@ -8,7 +8,7 @@ class Controller
 
     }
 
-    protected function _view($view, $data = array()) {
+    protected function _view($view, $data = array(), $return = false) {
 
         $controllerName = get_class($this);
         $controllerPathName = str_replace("controller","",strtolower($controllerName));
@@ -24,7 +24,11 @@ class Controller
         ob_start();
         include $viewPath;
         $viewResult = ob_get_clean();
-        echo $viewResult;
+        if ($return) {
+            return $viewResult;
+        } else {
+            echo $viewResult;
+        }
     }
 
     protected function _model($modelClass = false) {
